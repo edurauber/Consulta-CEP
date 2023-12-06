@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Consulta de Endereços</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body>
+    <div class="background flex flex-col">
+        <div class="title p-4">
+            <h1>Consulte o endereço através do CEP:</h1>
+        </div>
+        <form onsubmit="ConsultarCEP(); return false">
+            <div class="p-4">
+                <input type="text" name="cep" class="p-3" id="cep" placeholder="Digite apenas números...">
+                <button class="btn-consultar p-3"type="submit">Consultar</button>
+            </div>
+        </form>
+        <div>
+            <h2 class="result">Resultado:</h2>
+            <p id="resultado">
+
+            </p>
+        </div>
+    </div>
+</body>
+<!-- <script type="text/javascript">
+
+    function ConsultarCEP() {
+
+        let cep = document.getElementById("cep").value;
+
+        if (!cep) {
+            alert("Campo CEP inválido!");
+            return;
+        };
+
+        let consulta = new XMLHttpRequest();
+        const url = `https://viacep.com.br/ws/${cep}/json/`;
+
+        consulta.open('GET', url, true); 
+        consulta.setRequestHeader("Accept", "application/json");
+        consulta.send();
+        consulta.onreadystatechange = function () {
+            console.log(consulta.onreadystatechange);
+            if (consulta.readyState == 3) {
+                console.log("Carregando o conteúdo");
+            }
+            if (consulta.readyState == 4) {
+                console.log('CEP: ' + consulta.responseText);
+                let jsonResponse = JSON.parse(consulta.responseText);
+
+                document.getElementById("resultado").innerHTML = `CEP: ${jsonResponse.cep}, Logradouro: ${jsonResponse.logradouro}, Complemento: ${jsonResponse.complemento}, Bairro: ${jsonResponse.bairro}, UF: ${jsonResponse.uf}`;    
+
+                console.log(jsonResponse);
+            }
+            else {
+            console.error("Erro na requisição. Status: " + consulta.status);
+        };
+
+    
+}}
+
+</script> -->
+<script>
+    function ConsultarCEP() {
+
+    let cep = document.getElementById("cep").value;
+    if (!cep) {
+        alert("Campo CEP inválido!");
+        return;
+    }
+
+    let url = `https://viacep.com.br/ws/${cep}/json/`;
+    fetch(url)
+    .then(response => {
+        console.log("Resposta", response)
+        return response.json();
+    })
+    .then(answer => {
+        document.getElementById("resultado").innerHTML =
+            `CEP: ${answer.cep},<br/>`
+            + `Logradouro: ${answer.logradouro},<br/>` 
+            + `Bairro: ${answer.bairro},<br/>`
+            + `Cidade: ${answer.localidade},<br/>`
+            + `UF: ${answer.uf}`;
+    })
+    .catch(error => console.log(error));
+}
+</script>
+</html>

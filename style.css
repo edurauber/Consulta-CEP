@@ -1,0 +1,43 @@
+* {
+    font-family: "Montserrat", sans-serif;
+}
+
+body {
+    background-color: rgb(209, 209, 209);
+}
+
+.background {
+    
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.title {
+    font-size: larger;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+#cep {
+    border-radius: 10px;
+}
+
+.btn-consultar {
+    background-color: rgb(255, 166, 0) !important;
+    border: none;
+    color: #FFF;
+    border-radius: 10px;
+}
+
+.result {
+    font-weight: 600;
+    text-align: justify;
+    padding-bottom: 10px;
+}
+
+#resultado {
+    text-align: justify;
+}
